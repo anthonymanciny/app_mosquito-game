@@ -1,22 +1,68 @@
+
 var altura = 0
 var largura = 0
 var vidas = 1
+var tempo = 10
+
+var criaMosquitoTempo = 1500
+
+var nivel = window.location.search
+nivel = nivel.replace('?', '')
+
+if(nivel === 'normal') {
+
+    criaMosquitoTempo = 1500
+}else if(nivel === 'dificil'){
+
+    criaMosquitoTempo = 1000
+}else if(nivel === 'chucknorris'){
+
+    criaMosquitoTempo = 750
+}
 
     function ajustaTamanhoPalcoJogo(){ 
         altura =window.innerHeight
         largura = window.innerWidth
-        console.log('altura é de: ',altura, 'e a largura é de: ',largura)
+
+        console.log(altura,largura)
     }
 
     ajustaTamanhoPalcoJogo()
+/**
+                
+                            CRONOMETRO
 
-/* POSICIONAMENTO DE ELEMENTO */
+ */
+    var cronometro = setInterval(function(){
+    
+        tempo -= 1
+
+        if(tempo<0){
+            clearInterval(cronometro)
+            clearInterval(criaMosquito)
+            window.location.href='vitoria.html'
+        }else{
+            document.getElementById('cronometro').innerHTML = tempo 
+
+        }
+    },1000)
+
+
+/* 
+                
+                    POSICIONAMENTO DE ELEMENTO 
+
+*/
         function posicaoRandomica(){
 
         //Remover o mosquito anterior
         if(document.getElementById('mosquito')){
             document.getElementById('mosquito').remove()
-/*MECANICA DE GAME OVER */
+/*
+                
+                        MECANICA DE GAME OVER 
+                        
+*/
             if(vidas>=3){
                 window.location.href = 'game_over.html'
             }else{
